@@ -1,0 +1,168 @@
+{
+ "date": "2026-10-09T16:31:31",
+ "projects": {
+  "ds-nor-as-30480-akkasaeter-lager-og-vedlikeholdshall": {
+   "name": "30480 Akkasæter Lager - og vedlikeholdshall",
+   "seconds": 2.7,
+   "provider": "offline",
+   "rows": [
+    {
+     "what": "Total price €",
+     "assistant": 322400.0,
+     "maru": 333395.3,
+     "diff": "-3.3 %"
+    },
+    {
+     "what": "Steel structures manufacturing €",
+     "assistant": 269564.7,
+     "maru": 272219.3,
+     "diff": "-1.0 %"
+    },
+    {
+     "what": "Takeoff kg (steel in scope)",
+     "assistant": 148516.7,
+     "maru": 148315.3,
+     "diff": "+0.1 %"
+    },
+    {
+     "what": "Workshop hours (metal work)",
+     "assistant": 1803.8,
+     "maru": 1914.4,
+     "diff": "-5.8 %"
+    },
+    {
+     "what": "Weld length m",
+     "assistant": 4167.0,
+     "maru": 4743.0,
+     "diff": "-12.1 %"
+    },
+    {
+     "what": "Labour €",
+     "assistant": 82974.8,
+     "maru": 88061.3,
+     "diff": "-5.8 %"
+    },
+    {
+     "what": "Material € (before margin)",
+     "assistant": 134864.8,
+     "maru": 146276.4,
+     "diff": "-7.8 %"
+    },
+    {
+     "what": "Surface treatment € (before margin)",
+     "assistant": 35275.0,
+     "maru": 40259.9,
+     "diff": "-12.4 %"
+    },
+    {
+     "what": "Painted / galvanised area m²",
+     "assistant": 2622.2,
+     "maru": 3017.9,
+     "diff": "-13.1 %"
+    },
+    {
+     "what": "Transport €",
+     "assistant": 42320.0,
+     "maru": 37375.0,
+     "diff": "+13.2 %"
+    }
+   ],
+   "assistant_extras": {
+    "Fasteners for steel-to-steel connections": 8608.94,
+    "Anchors HILTI HUS4-HF": 934.5,
+    "Rebar studs ø20 welded to deck beams (allowance)": 971.92
+   },
+   "maru_separate_lines": {
+    "Bracings D30 with turnbuckles (72 pcs)": 17563.7,
+    "Hilti anchor HUS4-HF (150 pcs)": 935.0,
+    "Fasteners for steel-to-steel connections (741.6 kg bolts)": 5302.3
+   },
+   "transport_assistant": [
+    "6 × standard truck (13.5 m) × 3300 €",
+    "3 × long truck (15 m) × 4000 €",
+    "1 × special truck (20 m) × 5000 €"
+   ],
+   "transport_maru": "5 standard (13.5 m) + 4 long (15 m)"
+  },
+  "katera-steel-oy-kotka-cam-2e500-pedestrian-steel-skybridge": {
+   "name": "Kotka CAM 2E500 - Pedestrian Steel Skybridge",
+   "seconds": 1.8,
+   "provider": "offline",
+   "rows": [
+    {
+     "what": "Total price €",
+     "assistant": 493025.5,
+     "maru": 591285.1,
+     "diff": "-16.6 %"
+    },
+    {
+     "what": "Total price € with Maru's margins (1.10)",
+     "assistant": 515884.8,
+     "maru": 591285.1,
+     "diff": "-12.8 %"
+    },
+    {
+     "what": "Steel structures manufacturing €",
+     "assistant": 480045.5,
+     "maru": 576885.1,
+     "diff": "-16.8 %"
+    },
+    {
+     "what": "Takeoff kg (steel in scope)",
+     "assistant": 207218.8,
+     "maru": 206414.0,
+     "diff": "+0.4 %"
+    },
+    {
+     "what": "Workshop hours (metal work)",
+     "assistant": 3442.3,
+     "maru": 4355.8,
+     "diff": "-21.0 %"
+    },
+    {
+     "what": "Weld length m",
+     "assistant": 9222.0,
+     "maru": 13507.9,
+     "diff": "-31.7 %"
+    },
+    {
+     "what": "Labour €",
+     "assistant": 158345.8,
+     "maru": 200368.3,
+     "diff": "-21.0 %"
+    },
+    {
+     "what": "Material € (before margin)",
+     "assistant": 220534.7,
+     "maru": 248665.2,
+     "diff": "-11.3 %"
+    },
+    {
+     "what": "Surface treatment € (before margin)",
+     "assistant": 72089.2,
+     "maru": 67116.2,
+     "diff": "+7.4 %"
+    },
+    {
+     "what": "Painted / galvanised area m²",
+     "assistant": 3605.3,
+     "maru": 3355.8,
+     "diff": "+7.4 %"
+    },
+    {
+     "what": "Transport €",
+     "assistant": 12980.0,
+     "maru": 14400.0,
+     "diff": "-9.9 %"
+    }
+   ],
+   "assistant_extras": {},
+   "maru_separate_lines": {},
+   "transport_assistant": [
+    "11 × standard truck (13.5 m) × 850 €",
+    "1 × special truck (20 m) × 2450 €"
+   ],
+   "transport_maru": "10 standard (13.5 m) + 1 special (20 m)"
+  }
+ }
+}

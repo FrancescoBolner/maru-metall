@@ -1,0 +1,103 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>{{ res.report_name }} — Internal report</title>
+<style>
+{{ css|safe }}
+@page { size: A4; margin: 20mm 14mm 18mm 14mm;
+  @top-left { content: "{{ cfg.legal_name }} · {{ res.report_name }} · internal"; font-family: Plex; font-size: 7pt; color: #5b6775; }
+  @top-right { content: "Page " counter(page) "/" counter(pages); font-family: Plex; font-size: 7pt; color: #5b6775; }
+  @bottom-left { content: "Every number: E = extracted from a file, C = calculated by a rule (knowledge file), P = predicted (to confirm). CO2 factors are placeholders."; font-family: Plex; font-size: 6.5pt; color: #5b6775; }
+}
+.logo { width: 46mm; }
+.head td { border: none; padding: 0; }
+td.src { font-size: 6.6pt; color: #5b6775; }
+</style></head>
+<body>
+{% macro chip(t) %}{% if t %}<span class="chip t-{{ t }}">{{ t[0]|upper }}</span>{% endif %}{% endmacro %}
+<table class="head"><tr><td><h1 style="margin:0">{{ res.project_name }}</h1>
+<div class="muted">{{ res.company }} · {{ res.report_name }} · revision {{ res.revision }} · {{ 'APPROVED' if res.status == 'approved' else 'DRAFT' }} · {{ today }}</div></td>
+<td style="text-align:right"><img class="logo" src="{{ logo }}"></td></tr></table>
+
+<h2>1. Summary</h2>
+<table class="kpi"><tr>
+<td><div class="lab">Total price</div><div class="big">€ {{ vrow(s.price_id).text }}</div><div class="sub">range € {{ vrow(s.low_id).text }} – {{ vrow(s.high_id).text }}<br>{{ s.method }} method · {{ f.num(s.eur_per_kg, 2) }} €/kg</div></td>
+<td><div class="lab">Steel</div><div class="big">{{ f.num(val('total.kg', 0) / 1000, 1) }} t</div><div class="sub">{{ vrow(s.pieces_id).text }} pieces · plates {{ f.pct(val(s.plate_share_id)) }}</div></td>
+<td><div class="lab">Working hours</div><div class="big">{{ vrow(s.hours_id).text }} h</div><div class="sub">workshop {{ vrow(s.metal_hours_id).text }} h · labour € {{ vrow(s.labour_cost_id).text }}</div></td>
+<td><div class="lab">Paint · Carbon</div><div class="big">{{ vrow(s.paint_litres_id).text }} l</div><div class="sub">painting € {{ vrow(s.paint_cost_id).text }} · {{ vrow(s.co2_id).text }} t CO2e <span class="placeholder">(placeholder factors)</span></div></td>
+</tr></table>
+<p class="small" style="margin-top:3mm"><b>Project level:</b> {{ level }} — {{ level_reason }}. <b>Quantities:</b> {{ s.quantity_source }}.
+<b>Overall confidence:</b> extracted {{ f.pct(s.confidence.extracted) }}, calculated {{ f.pct(s.confidence.calculated) }}, predicted {{ f.pct(s.confidence.predicted) }} of the values in this report.
+<b>Methods:</b> detailed € {{ vrow(s.detailed_id).text }} · quick €/t € {{ vrow(s.quick_id).text }} (gap {{ f.pct(val(s.gap_id), 1) }}).
+<b>Time to report:</b> {{ f.num(res.timings.total, 1) }} s · <b>AI cost:</b> € {{ f.num(res.ai.cost_eur, 2) }} ({{ res.ai.provider }}).</p>
+<h3>Top risks</h3>
+<table><tr><th style="width:4%">#</th><th style="width:9%">Severity</th><th>Risk</th><th style="width:30%">Source</th></tr>
+{% for r in risks[:6] %}<tr><td>{{ r.rank }}</td><td class="sev-{{ r.sev }}">{{ r.sev }}</td><td><b>{{ r.title }}</b><br><span class="small">{{ r.detail }}</span></td><td class="src">{{ r.refs }}</td></tr>{% endfor %}
+</table>
+{% if questions %}<h3>Open questions for the client</h3><ul>{% for q in questions %}<li>{{ q }}</li>{% endfor %}</ul>{% endif %}
+{% if res.changes %}<h3>What changed in this revision</h3><table><tr><th>Change</th><th class="n">Before</th><th class="n">After</th></tr>
+{% for c in res.changes[:25] %}<tr><td>{{ c.label }}{% if c.reason %} <span class="muted small">— {{ c.reason }}</span>{% endif %}</td><td class="n">{{ f.num(c.before, 1) if c.before is number else c.before }}</td><td class="n">{{ f.num(c.after, 1) if c.after is number else c.after }}</td></tr>{% endfor %}</table>{% endif %}
+
+<h2>2. Metal takeoff</h2>
+<table><tr><th>Category</th><th class="n">Weight kg</th><th class="n">Pieces</th><th class="n">Area m²</th><th class="n">Plates</th><th>Surface</th><th class="n">Longest m</th></tr>
+{% for c in cats %}<tr {% if not c.included %}style="color:#999;text-decoration:line-through"{% endif %}><td>{{ c.name }}</td><td class="n">{{ c.kg.text }} {{ chip(c.kg.t) }}</td><td class="n">{{ c.pieces.text }}</td><td class="n">{{ c.area.text }}</td><td class="n">{{ c.plate }}</td><td>{{ c.surface.text }} {{ chip(c.surface.t) }}</td><td class="n">{{ c.longest }}</td></tr>{% endfor %}
+<tr class="total"><td>Total</td><td class="n">{{ vrow('total.kg').text }}</td><td class="n">{{ vrow(s.pieces_id).text }}</td><td class="n"></td><td class="n">{{ f.pct(val(s.plate_share_id)) }}</td><td></td><td class="n">{{ vrow(s.longest_id, 1).text }}</td></tr>
+</table>
+<p class="small muted">{{ res.values['total.kg'].reasoning or '' }}</p>
+<h3>Takeoff lines ({{ lines|length }})</h3>
+<table class="small fixed"><tr><th style="width:14%">Category</th><th style="width:15%">Profile</th><th style="width:8%">Grade</th><th class="n" style="width:6%">Pcs</th><th class="n" style="width:9%">kg</th><th class="n" style="width:7%">m²</th><th style="width:12%">Type</th><th style="width:29%">Reference</th></tr>
+{% for l in lines %}<tr><td>{{ l.category }}</td><td>{{ l.profile }}</td><td>{{ l.grade }}</td><td class="n">{{ l.pieces.text }}</td><td class="n">{{ l.kg.text }}</td><td class="n">{{ l.area.text }}</td><td>{{ chip(l.t) }} {{ l.conf }}</td><td class="src">{{ l.ref }}</td></tr>{% endfor %}
+</table>
+<h3>Extracted features</h3>
+<table class="small fixed"><tr><th style="width:14%">Group</th><th style="width:28%">Feature</th><th style="width:28%">Value</th><th style="width:30%">Source</th></tr>
+{% for g, items in features.items() %}{% for it in items %}<tr><td>{{ g if loop.first else '' }}</td><td>{{ it.label }}</td><td>{{ it.v.text }} {{ it.v.unit if it.v.unit and it.v.unit != 'share' else '' }} {{ chip(it.v.t) }}{% if it.v.conflict %} <span class="sev-high">conflict</span>{% endif %}</td><td class="src">{{ it.v.src[:120] }}</td></tr>{% endfor %}{% endfor %}
+</table>
+
+<h2>3. Working hours</h2>
+<table class="small"><tr><th>Operation</th><th class="n">Hours</th></tr>{% for o in ops %}<tr><td>{{ o.op }}</td><td class="n">{{ o.hours.text }}</td></tr>{% endfor %}
+<tr class="total"><td>Total working hours</td><td class="n">{{ vrow(s.hours_id, 1).text }}</td></tr></table>
+<table class="small fixed"><tr><th style="width:15%">Operation</th><th style="width:14%">Category</th><th class="n" style="width:16%">Quantity</th><th class="n" style="width:8%">Hours</th><th style="width:19%">Norm</th><th style="width:13%">Knowledge</th><th style="width:15%">Costed in</th></tr>
+{% for h in hours %}<tr><td>{{ h.op }}</td><td>{{ h.cat }}</td><td class="n">{{ h.qty.text }} {{ h.qty.unit }} {{ chip(h.qty.t) }}</td><td class="n">{{ h.hours.text }}</td><td>{{ h.norm }}</td><td class="src">{{ h.kn }}</td><td class="src">{{ h.costed }}</td></tr>{% endfor %}
+</table>
+
+<h2>4. Painting and surface treatment</h2>
+<table class="small"><tr><th>Category</th><th>System</th><th class="n">Area m²</th><th class="n">Coats</th><th>Paint (litres)</th><th class="n">Hours</th><th class="n">Cost €</th><th>Knowledge</th></tr>
+{% for p in paint %}<tr><td>{{ p.cat }}</td><td>{{ p.system }}</td><td class="n">{{ p.area.text }}</td><td class="n">{{ p.coats or '—' }}</td><td>{% for l in p.litres %}{{ l.product }}: {{ l.l.text }} l<br>{% endfor %}{% if not p.litres %}galvanised (priced per kg){% endif %}</td><td class="n">{{ p.hours.text }}</td><td class="n">{{ p.cost.text }}</td><td class="src">{{ p.kn }}</td></tr>{% endfor %}
+<tr class="total"><td>Total</td><td></td><td class="n">{{ vrow(res.paint_totals.area, 1).text }}</td><td></td><td>{{ vrow(res.paint_totals.litres).text }} l</td><td></td><td class="n">{{ vrow(res.paint_totals.cost).text }}</td><td></td></tr></table>
+
+<h2>5. Cost breakdown</h2>
+<table class="small"><tr><th>Category</th><th class="n">Material</th><th class="n">Labour</th><th class="n">Surface</th><th class="n">Packaging</th><th class="n">Price</th><th class="n">€/kg</th></tr>
+{% for c in cost_cats %}<tr><td>{{ c.name }}</td><td class="n">{{ c.material.text }}</td><td class="n">{{ c.labour.text }}</td><td class="n">{{ c.surface.text }}</td><td class="n">{{ c.packaging.text }}</td><td class="n"><b>{{ c.sale.text }}</b></td><td class="n">{{ c.eur_kg }}</td></tr>{% endfor %}</table>
+<table class="small"><tr><th>Cost group</th><th class="n">€</th></tr>
+{% for g in cost_groups %}<tr><td>{{ g.label }}</td><td class="n">{{ g.v.text }}</td></tr>{% endfor %}
+<tr><td>Margin (material × {{ vrow('param.margin_material').text }}, production × {{ vrow('param.margin_production').text }})</td><td class="n">{{ vrow(res.cost.margin).text }}</td></tr>
+{% for x in res.cost.extras %}<tr><td>{{ x.label }}</td><td class="n">{{ vrow(x.sale_id).text }}</td></tr>{% endfor %}
+<tr><td>Transport ({{ res.cost.transport_info.region }})</td><td class="n">{{ vrow(res.cost.transport).text }}</td></tr>
+<tr class="total"><td>Total price ({{ s.method }})</td><td class="n">{{ vrow(s.price_id).text }}</td></tr></table>
+<p class="small muted">Labour rate {{ vrow('param.labour_rate').text }} €/h (knowledge GEN-01) · steel price list {{ vrow(res.material.price_list_id).text }} · offcuts {{ vrow(res.material.waste_kg).text }} kg ({{ f.pct(val(res.material.waste_share), 1) }}), reusable {{ vrow(res.material.reusable_kg).text }} kg · {{ res.material.remnant_note }}</p>
+<h3>Quick method (€/t per category)</h3>
+<table class="small"><tr><th>Category</th><th class="n">€/t</th><th class="n">Price €</th><th class="n">Hours</th><th>Reference</th></tr>
+{% for q in quick %}<tr><td>{{ q.cat }}</td><td class="n">{{ q.eur_t.text }}</td><td class="n">{{ q.sale.text }}</td><td class="n">{{ q.hours.text }}</td><td class="src">{{ q.ref }} ({{ q.kn }})</td></tr>{% endfor %}
+<tr class="total"><td>Total (incl. extras and transport)</td><td></td><td class="n">{{ vrow(s.quick_id).text }}</td><td class="n">{{ vrow(res.hours_totals.quick, 0).text }}</td><td></td></tr></table>
+
+<h2>6. Carbon balance <span class="placeholder small">placeholder factors until supplier EPDs (EN 15804)</span></h2>
+<table class="small"><tr><th>Steel group</th><th class="n">Bought t</th><th class="n">EAF share</th><th class="n">Required recycled</th><th class="n">Planned recycled</th><th class="n">t CO2e</th></tr>
+{% for g in co2_groups %}<tr><td>{{ g.label }}</td><td class="n">{{ g.t }}</td><td class="n">{{ g.share.text }}</td><td class="n">{{ g.required }}</td><td class="n">{{ g.planned }}{% if g.ok == False %} <span class="sev-high">not met</span>{% endif %}</td><td class="n">{{ g.co2.text }}</td></tr>{% endfor %}</table>
+<table class="small"><tr><th>Component</th><th class="n">t CO2e</th></tr>{% for p in co2_parts %}<tr><td>{{ p.label }}</td><td class="n">{{ p.v.text }}</td></tr>{% endfor %}
+<tr class="total"><td>Total ({{ vrow(res.carbon.intensity_id, 2).text }} t CO2e per t steel)</td><td class="n">{{ vrow(res.carbon.total_id, 1).text }}</td></tr></table>
+<table class="small"><tr><th>Option</th><th class="n">Δ t CO2e</th></tr>{% for o in co2_opts %}<tr><td>{{ o.label }}</td><td class="n">{{ o.v.text }}</td></tr>{% endfor %}</table>
+<table class="small"><tr><th style="width:20%">Flag</th><th>Detail</th><th style="width:20%">Reference</th></tr>{% for fl in co2_flags %}<tr><td class="sev-{{ fl.severity }}">{{ fl.flag }}</td><td>{{ fl.detail }}</td><td class="src">{{ fl.reference }}</td></tr>{% endfor %}</table>
+
+<h2>7. Risks, assumptions, predicted values and questions</h2>
+<table class="small fixed"><tr><th style="width:4%">#</th><th style="width:8%">Severity</th><th style="width:60%">Risk</th><th style="width:28%">Question for the client</th></tr>
+{% for r in risks %}<tr><td>{{ r.rank }}</td><td class="sev-{{ r.sev }}">{{ r.sev }}</td><td><b>{{ r.title }}</b> — {{ r.detail }}<br><span class="src">{{ r.refs }}</span></td><td>{{ r.q }}</td></tr>{% endfor %}</table>
+<h3>Predicted values</h3>
+<table class="small"><tr><th>Value</th><th>Predicted</th><th class="n">Confidence</th><th>Reasoning</th></tr>
+{% for p in preds %}<tr><td>{{ p.label }}</td><td>{{ f.num(p.value) if p.value is number else p.value }} {{ p.unit or '' }}</td><td class="n">{{ '%.2f'|format(p.confidence) }}</td><td>{{ p.reasoning }}</td></tr>{% endfor %}</table>
+<h3>Assumptions and exclusions</h3>
+<ul class="small">{% for a in assumptions if a.kind != 'predicted' and a.text %}<li>{{ a.text }}</li>{% endfor %}</ul>
+
+<h2>8. File map appendix</h2>
+<table class="tiny fixed"><tr><th style="width:29%">File</th><th style="width:6%">Type</th><th class="n" style="width:7%">Size</th><th class="n" style="width:6%">Pages / el.</th><th style="width:10%">Status</th><th style="width:31%">Why</th><th style="width:11%">Read by</th></tr>
+{% for fl in files %}<tr><td>{{ fl.path }}</td><td>{{ fl.kind }}</td><td class="n">{{ fl.size }}</td><td class="n">{{ fl.pages }}</td><td>{{ fl.status }}</td><td>{{ fl.reason }}{% if fl.error %} <span class="sev-high">{{ fl.error }}</span>{% endif %} <span class="muted">({{ fl.by }})</span></td><td>{{ fl.read }}</td></tr>{% endfor %}
+</table>
+<p class="tiny muted">Knowledge file {{ res.knowledge.file }} (version {{ res.knowledge.version }}). Generated {{ res.created_at }}.</p>
+</body></html>

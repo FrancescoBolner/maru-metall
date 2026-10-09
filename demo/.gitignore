@@ -1,0 +1,19 @@
+# secrets
+.env
+# environments
+.venv/
+frontend/node_modules/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+# runtime data (created on first run)
+data/cache/
+data/runs/
+data/*.sqlite
+data/*.sqlite-*
+data/training/*
+!data/training/.gitkeep
+logs/*
+!logs/.gitkeep
+drives/maru/reports/*
+!drives/maru/reports/.gitkeep

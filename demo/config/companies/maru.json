@@ -1,0 +1,212 @@
+{
+  "id": "maru",
+  "name": "Maru Metall",
+  "legal_name": "AS Maru Metall",
+  "app_title": "Takeoff & Quoting Assistant",
+  "language": "en",
+  "languages": [
+    "en"
+  ],
+  "currency": "EUR",
+  "currency_symbol": "€",
+  "vat_rate": 0.0,
+  "vat_label": "VAT 0%",
+  "workshop_country": "EE",
+  "branding": {
+    "logo": "config/companies/maru_logo.png",
+    "tagline": "Engineering. Construction. Steel.",
+    "colors": {
+      "primary": "#01437D",
+      "accent": "#0086CD",
+      "highlight": "#13BDF0"
+    },
+    "address_lines": [
+      "Järvevana tee 5",
+      "10112 Tallinn, ESTONIA",
+      "www.maru.ee"
+    ],
+    "phone": "+372 650 8820",
+    "email": "metall@maru.ee",
+    "reg_no": "Reg. No 10723834",
+    "vat_no": "VAT No EE100671779",
+    "certifications": "EN 1090 (EXC3) · EN ISO 3834-2 · ISO 9001 · ISO 14001"
+  },
+  "numbering": {
+    "pattern": "{project_short}_quote_{seq:04d}",
+    "revision_suffix": "_rev{rev}",
+    "sequence_scope": "company"
+  },
+  "knowledge": {
+    "type": "excel",
+    "path": "drives/maru/knowledge/Maru_knowledge.xlsx",
+    "columns": {}
+  },
+  "storage": {
+    "client_drive_layout": "<company>/<project_name>/",
+    "alternative_layout_note": "The guide's 'single shared drive with 01 Input for pricing' is the same storage interface with client_root pointing at Maru's drive."
+  },
+  "file_rules": {
+    "superseded_folder_keywords": [
+      "ei kehti",
+      "old",
+      "superseded",
+      "invalid",
+      "vana",
+      "archive",
+      "arkiv",
+      "gammel",
+      "void",
+      "not valid",
+      "obsolete",
+      "vanhentunut"
+    ],
+    "not_relevant_keywords": [
+      "hvac",
+      "ventilation",
+      "ventilasjon",
+      "ventilatsioon",
+      "plumbing",
+      "sanitary",
+      "electrical",
+      "elektri",
+      "sprinkler",
+      "architect",
+      "arkitekt",
+      "arhitektuur",
+      "concrete",
+      "betong",
+      "betoon",
+      "rebar schedule",
+      "timber",
+      "wood",
+      "puit",
+      "glass",
+      "glazing",
+      "landscape",
+      "geotechnical"
+    ],
+    "metal_keywords": [
+      "steel",
+      "stål",
+      "teras",
+      "teräs",
+      "s355",
+      "s275",
+      "s235",
+      "hea",
+      "heb",
+      "ipe",
+      "rhs",
+      "shs",
+      "chs",
+      "upe",
+      "unp",
+      "profile",
+      "plate",
+      "assembly",
+      "part list",
+      "material list",
+      "beam",
+      "column",
+      "bracing",
+      "exc2",
+      "en 1090",
+      "en1090",
+      "weld"
+    ],
+    "rfq_keywords": [
+      "price inquiry",
+      "price request",
+      "request for tender",
+      "rfq",
+      "tender",
+      "hinnapäring",
+      "pakkumine",
+      "tilbud",
+      "forespørsel",
+      "tarjous"
+    ],
+    "small_image_bytes": 20000
+  },
+  "currencies_flagged": [
+    "NOK",
+    "SEK",
+    "DKK",
+    "USD",
+    "GBP",
+    "PLN"
+  ],
+  "country_rules": {
+    "EE": {
+      "name": "Estonia",
+      "epd_expected": false,
+      "carbon_limit_t_per_t_steel": null,
+      "notes": "No national limit for steel packages; revised EU CPR applies."
+    },
+    "FI": {
+      "name": "Finland",
+      "epd_expected": true,
+      "carbon_limit_t_per_t_steel": null,
+      "notes": "Building Act 2025: carbon footprint limits per building type (building level). Provide steel CO2e to the client's calculation.",
+      "status": "to confirm with Maru"
+    },
+    "NO": {
+      "name": "Norway",
+      "epd_expected": true,
+      "carbon_limit_t_per_t_steel": 1.2,
+      "notes": "Clients set recycled-content and climate requirements in tenders (e.g. Akkasæter 80 % recycled). Limit value here is a placeholder for a tender limit.",
+      "status": "placeholder"
+    },
+    "SE": {
+      "name": "Sweden",
+      "epd_expected": true,
+      "carbon_limit_t_per_t_steel": null,
+      "notes": "Climate declaration for new buildings (Boverket). Limit values announced; confirm scope with Maru.",
+      "status": "to confirm with Maru"
+    }
+  },
+  "cpr": {
+    "gwp_declaration_from": "2026",
+    "note": "Revised EU Construction Products Regulation phases in GWP declarations from 2026."
+  },
+  "offer": {
+    "validity_days": 14,
+    "includes": [
+      "Material",
+      "Steel structures fabrication",
+      "Surface treatment as stated in the price table",
+      "Packaging and transport as stated in the price table"
+    ],
+    "standard_excludes": [
+      "Erection works",
+      "Workshop drawings",
+      "Anything not shown in the model or listed in the price table"
+    ],
+    "standard_remarks": [
+      "Materials, certificates, fabrication, quality inspection and anticorrosion protection according to EN standards.",
+      "Quality control and tracing of raw materials according to our ISO 9001 quality manual.",
+      "Fabrication of the structural steel according to EN 1090-2, execution class as stated, tolerances acc. class 1.",
+      "CE marking will be issued by Maru Metall AS according to EN 1090-1.",
+      "Splicing of plates and profiles has been assumed to be permitted.",
+      "Standard packing procedure of Maru has been assumed.",
+      "We assume a unit price contract: final accounts = unit prices × actual quantities in the final list of materials.",
+      "Non-carbon steel elements, bending of items, milling and machining are excluded.",
+      "The price offer does not reserve our production resources.",
+      "Maru Metall reserves the right to change prices if quantities, type of structures or technical demands change."
+    ],
+    "signature": [
+      {
+        "name": "Madis Tuuling",
+        "role": "Sales Manager",
+        "phone": "+372 50 61 810",
+        "email": "madis.tuuling@maru.ee"
+      }
+    ],
+    "reference_offer_style": "Based on Maru offers HP11109-1 and HP11257-3"
+  },
+  "number_format": {
+    "thousands": " ",
+    "decimal": ",",
+    "locale": "et-EE"
+  }
+}

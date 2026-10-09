@@ -1,0 +1,44 @@
+@font-face { font-family: "Plex"; src: url("{{ fonts }}/IBMPlexSans-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Plex"; src: url("{{ fonts }}/IBMPlexSans-Medium.ttf"); font-weight: 500; }
+@font-face { font-family: "Plex"; src: url("{{ fonts }}/IBMPlexSans-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Plex"; src: url("{{ fonts }}/IBMPlexSans-Bold.ttf"); font-weight: 700; }
+@font-face { font-family: "Plex"; src: url("{{ fonts }}/IBMPlexSans-Italic.ttf"); font-style: italic; }
+
+html { font-family: "Plex", "DejaVu Sans", Arial, sans-serif; font-size: 9pt; color: #1d2733; line-height: 1.38; }
+body { margin: 0; }
+h1 { font-size: 17pt; font-weight: 600; color: #01437D; margin: 0 0 4mm 0; letter-spacing: 0.2px; }
+h2 { font-size: 12pt; font-weight: 600; color: #01437D; margin: 7mm 0 2.5mm 0; padding-bottom: 1.5mm; border-bottom: 1.2pt solid #01437D; }
+h3 { font-size: 10pt; font-weight: 600; color: #1d2733; margin: 4mm 0 1.5mm 0; }
+p { margin: 0 0 2mm 0; }
+.muted { color: #5b6775; }
+.small { font-size: 7.6pt; }
+.tiny { font-size: 6.8pt; }
+table { width: 100%; border-collapse: collapse; margin: 1mm 0 3mm 0; }
+th { background: #01437D; color: #fff; font-weight: 500; text-align: left; padding: 1.6mm 1.8mm; font-size: 8pt; }
+td { padding: 1.3mm 1.8mm; border-bottom: 0.5pt solid #d5dbe2; vertical-align: top; }
+td.n, th.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+tr.bold td { font-weight: 600; }
+tr.sub td { background: #eef3f8; font-weight: 500; color: #01437D; }
+tr.total td { font-weight: 700; border-top: 1.2pt solid #01437D; border-bottom: 1.2pt solid #01437D; font-size: 10pt; }
+.chip { display: inline-block; padding: 0.2mm 1.4mm; border-radius: 1mm; font-size: 6.6pt; font-weight: 600; color: #fff; }
+.t-extracted { background: #0B6BB5; }
+.t-calculated { background: #2E7D5B; }
+.t-predicted { background: #B26A00; }
+.sev-high { color: #B3261E; font-weight: 600; }
+.sev-medium { color: #B26A00; font-weight: 600; }
+.sev-low { color: #5b6775; font-weight: 600; }
+.box { border: 0.8pt solid #d5dbe2; padding: 3mm; margin: 2mm 0; }
+.kpi { width: 100%; border-collapse: separate; border-spacing: 2mm 0; margin-left: -2mm; }
+.kpi td { border: 0.8pt solid #d5dbe2; border-top: 2.4pt solid #01437D; padding: 2.2mm 2.6mm; width: 25%; }
+.kpi .lab { font-size: 7.2pt; color: #5b6775; text-transform: uppercase; letter-spacing: 0.4px; }
+.kpi .big { font-size: 14pt; font-weight: 600; color: #01437D; }
+.kpi .sub { font-size: 7.4pt; color: #5b6775; }
+.bar { height: 3mm; width: 100%; border-collapse: collapse; margin: 1mm 0; }
+.bar td { padding: 0; border: none; }
+.placeholder { color: #B3261E; font-weight: 600; }
+ul { margin: 0 0 2mm 4.5mm; padding: 0; }
+li { margin: 0 0 1mm 0; }
+.nobreak { page-break-inside: avoid; }
+
+table.fixed { table-layout: fixed; }
+table.fixed td { overflow-wrap: anywhere; }

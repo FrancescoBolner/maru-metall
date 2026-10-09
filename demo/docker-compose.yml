@@ -1,0 +1,19 @@
+# One command:  docker compose up --build   →  http://localhost:8000
+name: maru-takeoff
+services:
+  app:
+    build: .
+    image: maru-takeoff-demo:1.0.0
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env          # API key etc. (optional; without it the offline rules provider is used)
+        required: false
+    environment:
+      MARU_DEMO_ROOT: /demo
+    volumes:
+      - ./drives:/demo/drives   # client drive (input) + Maru drive (knowledge file, reports)
+      - ./data:/demo/data       # database, revisions, training data, caches
+      - ./logs:/demo/logs       # AI call log
+      - ./config:/demo/config   # company config, prompts (editable without rebuilding)
+    restart: unless-stopped

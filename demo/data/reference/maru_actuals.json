@@ -1,0 +1,35 @@
+{
+  "_about": "Maru Metall's real numbers for the two example projects, copied from materials/ (03 - Price offer PDFs and 02 - Cost calculation workbooks, sheet 'Koostamine' row 7 and sheet 'Pakkumistabel'). Used by scripts/accuracy_check.py.",
+  "projects": {
+    "ds-nor-as-30480-akkasaeter-lager-og-vedlikeholdshall": {
+      "name": "30480 Akkasæter Lager - og vedlikeholdshall",
+      "offer": "HP11109-1 (24.10.2025)",
+      "total_price": 333395.3,
+      "manufacturing_kg": 148315.3,
+      "manufacturing_price": 272219.3,
+      "separate_lines": {"Bracings D30 with turnbuckles (72 pcs)": 17563.7, "Hilti anchor HUS4-HF (150 pcs)": 935.0,
+                         "Fasteners for steel-to-steel connections (741.6 kg bolts)": 5302.3},
+      "transport": 37375.0,
+      "transport_trucks": "5 standard (13.5 m) + 4 long (15 m)",
+      "margins": {"material": 1.05, "production": 1.05},
+      "workbook": {"kg_total_incl_rods": 157845.9, "painted_area_m2": 3017.9, "metal_hours": 1914.4, "welding_m": 4743.0,
+                   "labour_eur": 88061.3, "material_eur": 146276.4, "surface_eur": 40259.9, "packaging_eur": 4735.4,
+                   "sale_eur": 293299.6},
+      "fasteners_kg": 741.6
+    },
+    "katera-steel-oy-kotka-cam-2e500-pedestrian-steel-skybridge": {
+      "name": "Kotka CAM 2E500 - Pedestrian Steel Skybridge",
+      "offer": "HP11257-3 (16.07.2026)",
+      "total_price": 591285.1,
+      "manufacturing_kg": 206414.0,
+      "manufacturing_price": 576885.1,
+      "separate_lines": {},
+      "transport": 14400.0,
+      "transport_trucks": "10 standard (13.5 m) + 1 special (20 m)",
+      "margins": {"material": 1.10, "production": 1.10},
+      "workbook": {"kg_total": 211626.9, "painted_area_m2": 3355.8, "metal_hours": 4355.8, "welding_m": 13507.9,
+                   "labour_eur": 200368.3, "material_eur": 248665.2, "surface_eur": 67116.2, "packaging_eur": 6348.8,
+                   "sale_eur": 574748.4}
+    }
+  }
+}

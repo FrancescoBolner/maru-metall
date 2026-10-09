@@ -1,0 +1,45 @@
+{
+  "company": "maru",
+  "storage": {
+    "type": "local",
+    "client_root": "drives/client",
+    "maru_root": "drives/maru",
+    "reports_dir": "drives/maru/reports"
+  },
+  "ai": {
+    "provider": "auto",
+    "provider_help": "auto = Claude when ANTHROPIC_API_KEY is set, otherwise offline rules. Other values: claude | local | offline",
+    "max_retries": 3,
+    "parallel_files": 4,
+    "max_chars_per_call": 24000,
+    "max_images_per_call": 2,
+    "claude": {
+      "model": "claude-sonnet-5-5",
+      "max_tokens": 8000,
+      "effort": "low",
+      "thinking": "between_tools",
+      "temperature": null,
+      "timeout_s": 120,
+      "price_usd_per_mtok_in": 2.0,
+      "price_usd_per_mtok_out": 10.0,
+      "usd_to_eur": 0.92
+    },
+    "local": {
+      "base_url": "http://localhost:11434/v1",
+      "model": "qwen2.5:14b-instruct",
+      "temperature": 0,
+      "timeout_s": 300,
+      "api_key": "local",
+      "price_usd_per_mtok_in": 0.0,
+      "price_usd_per_mtok_out": 0.0,
+      "usd_to_eur": 1.0
+    }
+  },
+  "pipeline": {
+    "max_files_scan": 20000,
+    "pdf_scan_pages": 6,
+    "pdf_text_pages_for_ai": 4,
+    "image_max_px": 1600,
+    "ifc_version_overlap": 0.5
+  }
+}

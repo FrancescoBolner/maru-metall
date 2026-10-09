@@ -1,0 +1,74 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>{{ res.report_name }} — Price offer</title>
+<style>
+{{ css|safe }}
+@page { size: A4; margin: 24mm 17mm 26mm 17mm;
+  @top-left { content: "{{ cfg.legal_name }}"; font-family: Plex; font-size: 7.5pt; color: #5b6775; }
+  @top-center { content: "PRICE OFFER"; font-family: Plex; font-size: 7.5pt; color: #5b6775; }
+  @top-right { content: "Page " counter(page) "/" counter(pages); font-family: Plex; font-size: 7.5pt; color: #5b6775; }
+  @bottom-left { content: element(footer); }
+}
+.footer { position: running(footer); font-size: 7pt; color: #01437D; width: 176mm; }
+.footer table { margin: 0; }
+.footer td { border: none; padding: 0 3mm 0 0; vertical-align: top; }
+.logo { width: 62mm; }
+.head td { border: none; padding: 0; }
+.draft { color: #B3261E; font-size: 8pt; font-weight: 600; }
+</style></head>
+<body>
+<div class="footer"><table><tr>
+  <td style="width:34%"><b>{{ cfg.legal_name }}</b><br>{% for l in cfg.branding.address_lines %}{{ l }}<br>{% endfor %}</td>
+  <td style="width:33%">Phone {{ cfg.branding.phone }}<br>E-mail {{ cfg.branding.email }}</td>
+  <td style="width:33%">{{ cfg.branding.reg_no }}<br>{{ cfg.branding.vat_no }}</td>
+</tr></table></div>
+
+<table class="head"><tr>
+  <td style="width:55%; padding-top: 6mm;">
+    {% if client_contact %}{{ client_contact }}<br>{% endif %}
+    {{ client_company }}<br>
+    {% if client_email %}{{ client_email }}{% endif %}
+  </td>
+  <td style="text-align:right"><img class="logo" src="{{ logo }}"><br><br>{{ today }} &nbsp; {{ res.report_name }}</td>
+</tr></table>
+
+<h1 style="margin-top:8mm">PRICE OFFER</h1>
+{% if res.status != 'approved' %}<p class="draft">DRAFT — not approved by the estimator yet</p>{% endif %}
+<table class="head" style="width:auto"><tr><td style="padding-right:10mm"><b>Project:</b></td><td><b>{{ project_title }}</b></td></tr>
+<tr><td style="padding-right:10mm"><b>Project address:</b></td><td><b>{{ project_address }}</b>{% if address_conflict %} <span class="muted">(two addresses received — to be confirmed)</span>{% endif %}</td></tr></table>
+<p style="margin-top:3mm">Price offer is calculated according to your documentation{% if inquiry_date %} received on <b>{{ inquiry_date }}</b>{% endif %}.
+{% if qty_files %}Price offer quantities are based on {% for q in qty_files %}„{{ q }}“{% if not loop.last %}{% if loop.revindex == 2 %} and {% else %}, {% endif %}{% endif %}{% endfor %}.{% endif %}</p>
+
+<h3>PRICE, {{ cfg.currency }} {{ cfg.vat_label }}</h3>
+<table>
+<tr><th style="width:9%">No.</th><th>Name</th><th style="width:12%">Surface</th><th class="n" style="width:12%">Amount</th><th style="width:6%">Unit</th><th class="n" style="width:13%">Price, €</th><th class="n" style="width:10%">Unit price</th></tr>
+{% for r in offer_rows %}
+<tr class="{% if r.bold %}bold{% endif %} {% if r.sub %}sub{% endif %}"><td>{{ r.no }}</td><td>{{ r.name }}</td><td>{{ r.surface }}</td><td class="n">{{ r.amount }}</td><td>{{ r.unit }}</td><td class="n">{{ r.price }}</td><td class="n">{{ r.unit_price }}</td></tr>
+{% endfor %}
+<tr class="total"><td></td><td>TOTAL:</td><td></td><td></td><td></td><td class="n">{{ total }}</td><td></td></tr>
+</table>
+
+<div class="nobreak">
+<h3>Delivery terms</h3>
+<p>{{ delivery_terms }} {{ project_address }}</p>
+<h3>Delivery time</h3>
+<p>{{ delivery_time }}</p>
+<h3>Offer is valid</h3>
+<p>{{ valid_until }}</p>
+</div>
+
+<h3>The price offer includes:</h3>
+<ul>{% for i in includes %}<li>{{ i }}</li>{% endfor %}</ul>
+<h3>The price offer does not include:</h3>
+<ul>{% for i in excludes %}<li>{{ i }}</li>{% endfor %}</ul>
+{% if options %}<h3>Options (not included in the total):</h3><ul>{% for o in options %}<li>{{ o }}</li>{% endfor %}</ul>{% endif %}
+
+<h3>ASSUMPTIONS AND REMARKS</h3>
+<ol style="margin-left:4.5mm; padding:0">
+{% for r in remarks %}<li>{{ r }}</li>{% endfor %}
+{% for a in client_assumptions %}<li>{{ a }}</li>{% endfor %}
+</ol>
+{% if questions %}<h3>Points to confirm before order</h3><ul>{% for q in questions %}<li>{{ q }}</li>{% endfor %}</ul>{% endif %}
+
+<p style="margin-top:8mm">Yours sincerely,</p>
+<table class="head" style="margin-top:6mm"><tr>{% for sgn in cfg.offer.signature %}<td>{{ sgn.name }}<br><span class="muted">{{ sgn.role }}</span><br>{{ sgn.phone }}<br>{{ sgn.email }}</td>{% endfor %}<td style="text-align:right" class="muted small">Prepared with the Takeoff &amp; Quoting Assistant<br>{{ res.report_name }}</td></tr></table>
+</body></html>
