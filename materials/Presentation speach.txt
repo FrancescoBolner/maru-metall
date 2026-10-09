@@ -1,0 +1,55 @@
+Feel free to come here on on stage.
+Hello.
+Fantastic.
+What is maritime?
+What is the.
+We are going to in a second.
+Welcome to Estonia everybody.
+Be glad to see you.
+It might seem funny to have MAR company here.
+Yeah.
+Among referring all AI companies and startups.
+But fact is that all AI companies need data centers right now.
+Shortage is not only in chips, it's also in steel structures actually.
+So you need to have steel structures and infrastructure to have AI.
+But we come to help.
+So that's actually my personal pain in a company because I'm sales merchant and it takes so long and many working hours to get together and price stuff.
+So we are chasing a way how to automate it, make it fast, reliable, easy.
+What is business case situation is.
+But we are getting very many price offers.
+This quality of this information for pricing is very, very different.
+It can be very detailed technical documentation.
+It can be a simple sketch just showing.
+Please build me up this kind of structure and this data nowadays.
+In old times I have been in this business 25 years.
+It started like client centers paper documents.
+Paper documents takes time to read it.
+Nowadays clients just share us gigabytes of data with tens of thousands of drawings.
+And we need to find out ourselves what exactly are at once.
+What is this technical requirements sometimes among them these tens of thousands of documents.
+Only one sentence can and cost millions.
+So it's very, very time consuming.
+What we are looking for input, interpretation.
+We need to fast scroll through all These drawings, texts, IFC model, 3D models at first to decide if that's something that we can do what is good for our company.
+Next thing, after we have decided if that is a good thing, good project for us, we need to start extracting how much materials we need.
+There's a lot of several working operations.
+It does traditional steel fabrication and there is a lot of small details and all must be catched and fad out.
+And of course, since there is so many small details, there's a lot big risk of missing something.
+So we need to handle this kind of risk somehow.
+And output that's of course kind of easy part.
+But that's very much related to risk assumptions.
+We need to put out a crude quotation.
+So you need to think of out the outflow system.
+When you're doing it has to be traceability.
+Because AI is kind of a black box.
+It's very hard to know based on what AI reached to some kind of decision.
+So there must be some kind of procedure to validate decision or information that AI came out.
+You need to solve somehow with a variable input question.
+It can be 3D model, it can be the PDF drawing, it can be CAD drawing can be text information.
+All this documentation will be basis for calculating correct cost and scalability because more quotations can mean more projects.
+And of course actually when you solve this quoting issue in our traditional industry.
+But real challenge is not actually startups in my opinion, it is how to make our type of companies to live in this new world.
+Basically this kind of solution can be scaled up and sold to many, many companies.
+So shortly.
+We know that this time paradigm is not enough for working out fully detailed solution, but what we want is to you to play around, see if it's possible and help us to find a way if that is a way to solve my pain.
+So thank you.
